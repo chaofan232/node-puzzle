@@ -14,8 +14,12 @@ const isQuotedStr = (str) => {
 module.exports = function () {
   let words = 0;
   let lines = 0;
+  let chars = 0;
 
   const transform = function (chunk, encoding, cb) {
+    //   Cal chars: without space
+    chars = chunk.replace(/\s/g, '').length;
+
     chunk.split('\n').forEach((line) => {
       if (!line) {
         return;
@@ -39,7 +43,7 @@ module.exports = function () {
   };
 
   const flush = function (cb) {
-    this.push({words, lines});
+    this.push({words, lines, chars});
     this.push(null);
     return cb();
   };

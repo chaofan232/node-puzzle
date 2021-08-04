@@ -34,19 +34,19 @@ const helper = function (input, expected, done) {
 describe('10-word-count', function () {
   it('should count a single word', function (done) {
     const input = 'test';
-    const expected = {words: 1, lines: 1};
+    const expected = {words: 1, lines: 1, chars: 4};
     return helper(input, expected, done);
   });
 
   it('should count words in a phrase', function (done) {
     const input = 'this is a basic test';
-    const expected = {words: 5, lines: 1};
+    const expected = {words: 5, lines: 1, chars: 16};
     return helper(input, expected, done);
   });
 
   it('should count quoted characters as a single word', function (done) {
     const input = '"this is one word!"';
-    const expected = {words: 1, lines: 1};
+    const expected = {words: 1, lines: 1, chars: 16};
     return helper(input, expected, done);
   });
 });
@@ -59,19 +59,19 @@ describe('10-word-count', function () {
 describe('10-word-count: camel cased strings', function () {
   it('should count camel cased word as multiple words', function (done) {
     const input = 'AFunPuzzle';
-    const expected = {words: 3, lines: 1};
+    const expected = {words: 3, lines: 1, chars: 10};
     return helper(input, expected, done);
   });
 
   it('should count number in a  camel cased word as a word', function (done) {
     const input = 'The2FunPuzzle';
-    const expected = {words: 4, lines: 1};
+    const expected = {words: 4, lines: 1, chars: 13};
     return helper(input, expected, done);
   });
 
   it('should count camel cased abbreviations as one word', function (done) {
     const input = 'SetupSDKForMobileDev';
-    const expected = {words: 5, lines: 1};
+    const expected = {words: 5, lines: 1, chars: 20};
     return helper(input, expected, done);
   });
 });
@@ -80,19 +80,19 @@ describe('10-word-count: camel cased strings', function () {
 describe('10-word-count: fixtures files', function () {
   it('should count every word', function (done) {
     const input = fs.readFileSync(file1, 'utf8');
-    const expected = {words: 9, lines: 1};
+    const expected = {words: 9, lines: 1, chars: 35};
     return helper(input, expected, done);
   });
 
   it('should count quoted string as one word', function (done) {
     const input = fs.readFileSync(file2, 'utf8');
-    const expected = {words: 7, lines: 3};
+    const expected = {words: 7, lines: 3, chars: 37};
     return helper(input, expected, done);
   });
 
   it('should count camel cased string as multiple words', function (done) {
     const input = fs.readFileSync(file3, 'utf8');
-    const expected = {words: 9, lines: 5};
+    const expected = {words: 9, lines: 5, chars: 13, chars: 35};
     return helper(input, expected, done);
   });
 });
