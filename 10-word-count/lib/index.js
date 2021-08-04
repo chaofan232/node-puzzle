@@ -17,22 +17,21 @@ module.exports = function () {
 
   const transform = function (chunk, encoding, cb) {
     chunk.split('\n').forEach((line) => {
-      //  Skip empty line
-      if (line) {
-        lines++;
-        // Handle quoted strings:
-        if (isQuotedStr(line)) {
-          words += 1;
-        } else {
-          // Handle camel cased string without "": split the camel cased string into separate word
-          if (isCamelCased(line)) {
-            line = line.split(/([A-Z][a-z]+)/).filter((word) => word);
-            words += line.length;
-          } else {
-            line = line.split(' ');
-            words += line.length;
-          }
+      if (!line) {
+        return;
+      }
+
+      lines++;
+      if (isQuotedStr(line)) {
+        words += 1;
+      } else {
+        if (isCamelCased(line)) {
+          line = line.split(/([A-Z][a-z]+)/).filter((word) => word);
+          words += line.length;
+          return;
         }
+        line = line.split(' ');
+        words += line.length;
       }
     });
 
@@ -49,8 +48,4 @@ module.exports = function () {
 };
 
 // Requirments:
-// - Extend the transform stream to handle quoted strings.
-// - Extend the transform stream to handle camel cased words.
-// - Extend the transform stream to count lines.
-// - Write more tests to demonstrate your skills finding edge cases and corner cases.
 // - Bonus points: add support for counting characters and bytes.
