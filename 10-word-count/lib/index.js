@@ -1,13 +1,12 @@
 const through2 = require('through2');
 
-const quotedStrPattern = new RegExp('"[^"]*"');
-const camelCasedPattern = new RegExp('([A-Z]+[a-z0-9]+){2,}');
-
 const isCamelCased = (str) => {
+  const camelCasedPattern = new RegExp('([A-Z]+[a-z0-9]+){2,}');
   return camelCasedPattern.test(str);
 };
 
 const isQuotedStr = (str) => {
+  const quotedStrPattern = new RegExp('"[^"]*"');
   return quotedStrPattern.test(str);
 };
 
@@ -17,7 +16,6 @@ module.exports = function () {
   let chars = 0;
 
   const transform = function (chunk, encoding, cb) {
-    //   Cal chars: without space
     chars = chunk.replace(/\s/g, '').length;
 
     chunk.split('\n').forEach((line) => {
@@ -50,6 +48,3 @@ module.exports = function () {
 
   return through2.obj(transform, flush);
 };
-
-// Requirments:
-// - Bonus points: add support for counting characters and bytes.

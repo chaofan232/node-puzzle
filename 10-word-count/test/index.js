@@ -1,6 +1,6 @@
+const fs = require('fs');
 const assert = require('assert');
 const WordCount = require('../lib');
-const fs = require('fs');
 
 const file1 = `${__dirname}/fixtures/1,9,44.txt`;
 const file2 = `${__dirname}/fixtures/3,7,46.txt`;
@@ -92,7 +92,7 @@ describe('10-word-count: fixtures files', function () {
 
   it('should count camel cased string as multiple words', function (done) {
     const input = fs.readFileSync(file3, 'utf8');
-    const expected = {words: 9, lines: 5, chars: 13, chars: 35};
+    const expected = {words: 9, lines: 5, chars: 35};
     return helper(input, expected, done);
   });
 });
